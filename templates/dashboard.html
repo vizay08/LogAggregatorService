@@ -12,7 +12,19 @@
 
 <div id="chart_div" width="100" height="100"></div>
 <body>
-hello
+<h1>Log List</h1>
+<table>
+    <thead>
+    <td>Email</td><td>Logname</td><td>Open Link</td>
+    </thead>
+    {% for i,j in loglist %}
+        <tr>
+            <td>{{ i }}</td>
+            <td>{{ j }}</td>
+            <td><a href="{{current_uri}}{{i}}/{{j}}">{{current_uri}}{{i}}/{{j}}</a>/</td>
+        </tr>
+    {% endfor %}
+</table>
 <script>
 google.charts.load('current', {packages: ['corechart', 'line']});
 

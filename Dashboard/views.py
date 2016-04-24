@@ -2,7 +2,7 @@ from pyasn1_modules.rfc1905 import max_bindings
 
 from django.shortcuts import render
 from django.http.response import HttpResponse
-from MessageLogger.models import MessageStatistics,LogSummary
+from MessageLogger.models import MessageStatistics,LogSummary,ClientLogs,ClientTokens
 from django.db.models import Max
 from django.views.decorators.csrf import csrf_exempt
 import time
@@ -10,11 +10,17 @@ import psutil
 
 
 def view_dashboard(request):
-    ms = MessageStatistics.objects.all().order_by('-id')[:5]
-    for i in ms:
-        print i.time,i.numrequests
+    loglist = ClientLogs.objects.all()
+    context_obj = []
+    for i in loglist:
+        context_obj.append([ClientTokens.objects.get(clienttoken=i.clienttoken).email_id,i.logname])
 
-    return render(request,"dashboard.html")
+    current_uri = request.get_raw_uri()
+    context = {
+        'current_uri': current_uri,
+        'loglist' : context_obj
+    }
+    return render(request,"dashboard.html",context=context)
 
 
 def statistics(request):
@@ -70,6 +76,9 @@ def messageincomingstatistics(request):
 
 
         return HttpResponse("[" +  ",".join(map(str,LO)) + "]")
+
+
+
 
 
 

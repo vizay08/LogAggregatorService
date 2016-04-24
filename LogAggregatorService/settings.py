@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'LogViewer',
     'Dashboard',
     'MessageLogger',
     'django.contrib.admin',

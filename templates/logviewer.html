@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LogViewer</title>
+</head>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
+<body>
+    <pre id="viewer">
+        Error could not be loaded
+    </pre>
+<script>
+    $("#viewer").ready(function(){
+        setInterval(function(){
+            $.ajax({
+                url:'/logview/',
+                type:'POST',
+                data:{email: "{{ email}}" ,logname: "{{logname}}"},
+                success: function(r){
+                        $("#viewer").html(r);
+                    }
+            });
+        },2500);
+    });
+</script>
+</body>
+</html>

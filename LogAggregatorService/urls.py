@@ -18,11 +18,14 @@ from django.conf.urls import url,include
 from django.contrib import admin
 import MessageLogger
 import Dashboard
+from LogViewer import views
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^',include("Dashboard.urls")),
     url(r'^log/',MessageLogger.views.put_in_log,name="put_in_log"),
-    url(r'^message_chart/',Dashboard.views.messageincomingstatistics,name="message_chart")
+    url(r'^message_chart/',Dashboard.views.messageincomingstatistics,name="message_chart"),
+    url(r'^logview/',views.logview,name='logview'),
+    url(r'^(?P<email>.+)/(?P<logname>.+)/$',views.viewer,name='logviewer'),
 ]
