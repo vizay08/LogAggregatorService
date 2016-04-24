@@ -2,4 +2,10 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-# Create your models here.
+class CPUStatistics(models.Model):
+    timestamp = models.IntegerField()
+    cpupercent = models.IntegerField()
+    memoryusage = models.IntegerField()
+    ioreadusage = models.IntegerField()
+    iowriteusage = models.IntegerField()
+

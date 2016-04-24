@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'LogViewer',
     'Dashboard',
+    'djcelery',
     'MessageLogger',
     'django.contrib.admin',
     'django.contrib.auth',
