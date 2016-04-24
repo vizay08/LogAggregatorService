@@ -5,9 +5,10 @@ from django.http.response import HttpResponse
 from MessageLogger.models import MessageStatistics,LogSummary
 from django.db.models import Max
 from django.views.decorators.csrf import csrf_exempt
+import time
 import psutil
 
-
+    
 def view_dashboard(request):
     ms = MessageStatistics.objects.all().order_by('-id')[:5]
     for i in ms:
@@ -56,7 +57,7 @@ def messageincomingstatistics(request):
         L = [0 for _ in xrange(numSeconds)]
         ls = LogSummary.objects.all()
         if ls:
-            max_value = ls.aggregate(Max('timestamp'))['timestamp__max']
+            max_value = int(time.time())#ls.aggregate(Max('timestamp'))['timestamp__max']
 
             ls = LogSummary.objects.filter(timestamp__gte = max_value - numSeconds)
 
