@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 import time
 import psutil
 
-    
+
 def view_dashboard(request):
     ms = MessageStatistics.objects.all().order_by('-id')[:5]
     for i in ms:
