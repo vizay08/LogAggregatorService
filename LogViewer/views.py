@@ -5,7 +5,10 @@ from django.http.response import HttpResponse
 
 # Create your views here.
 def viewer(request,email,logname):
-
+    '''
+        takes email and logname and presents a logviewer page
+        for those details
+    '''
     context = {
         'email':email,
         'logname':logname
@@ -15,9 +18,13 @@ def viewer(request,email,logname):
 
 @csrf_exempt
 def logview(request):
+        '''
+            takes email and logname and reads last
+            30 lines in the log file
+        '''
         email = request.POST.get('email','')
         logname = request.POST.get('logname','')
-        print email,logname
+
         clienttoken = ClientTokens.objects.get(email_id=email).clienttoken
         log = ClientLogs.objects.get(clienttoken=clienttoken,logname=logname).logphysicalmap
 

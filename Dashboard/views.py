@@ -11,6 +11,10 @@ import psutil
 
 
 def view_dashboard(request):
+    '''
+        presents dashboard view
+        which has graphs and logs list
+    '''
     loglist = ClientLogs.objects.all()
     context_obj = []
     for i in loglist:
@@ -25,6 +29,10 @@ def view_dashboard(request):
 
 @csrf_exempt
 def cpustatistics(request):
+    '''
+       takes POST param num_seconds for the duration and
+       provides CPU statistics in that duration
+    '''
     if request.method == 'GET':
         return HttpResponse('[[0],[0],[0]]')
     elif request.method == 'POST':
@@ -45,7 +53,7 @@ def cpustatistics(request):
             max_value = int(time.time())#ls.aggregate(Max('timestamp'))['timestamp__max']
 
             ls = CPUStatistics.objects.filter(timestamp__gte = max_value - numSeconds)
-            print len(ls)
+
             for i in ls:
                 try:
                     cpul.append(i.cpupercent)
@@ -55,7 +63,7 @@ def cpustatistics(request):
                 except:
                     print "going to exception blah blah"
         cpul.reverse()
-        ml.reverse()
+        ml.reverse()    
         ir.reverse()
         iw.reverse()
         CLO = []
@@ -85,11 +93,15 @@ def cpustatistics(request):
 
 
         opt = str([CLO,MLO,IRO,IWO])
-        print opt
+
         return HttpResponse(opt)
 
 @csrf_exempt
 def messageincomingstatistics(request):
+    '''
+        takes POST param num_seconds for the duration and
+        provides message statistics in that duration
+    '''
     if request.method == 'GET':
         return HttpResponse('[0,0]')
     elif request.method == 'POST':

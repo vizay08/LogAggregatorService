@@ -1,26 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
+{% load staticfiles %}
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard</title>
 
-
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css'%}">
 </head>
-{% load staticfiles %}
+
 <script type="text/javascript" src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
  <script type="text/javascript" src="{% static 'js/googlechartloader.js' %}"></script>
 
+<nav  class="navbar  navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Dashboard</a>
+    </div>
+
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div style="text-align:center" >
+    <label class="heading"><h1>Statistics</h1></label>
+</div>
 <div id="chart_div" ></div>
 <div id="memory_div"></div>
 <div id="cpu_div"></div>
 <div id="read_div"></div>
 <div id="write_div"></div>
 <body>
-<h1>Log List</h1>
-<table>
+<div style="text-align:center" >
+    <label class="heading"><h1>Log List</h1></label>
+</div>
+<table style="text-align:center" class="table table-hover">
     <thead>
-    <td>Email</td><td>Logname</td><td>Open Link</td>
+    <tr>
+        <td><h2>Email</h2></td><td><h2>Logname</h2></td><td><h2>Open Link</h2></td>
+    </tr>
     </thead>
+    <tbody>
     {% for i,j in loglist %}
         <tr>
             <td>{{ i }}</td>
@@ -28,6 +56,7 @@
             <td><a href="{{current_uri}}{{i}}/{{j}}/">{{current_uri}}{{i}}/{{j}}</a>/</td>
         </tr>
     {% endfor %}
+    </tbody>
 </table>
 <script>
 google.charts.load('current', {packages: ['corechart', 'line']});
@@ -96,5 +125,6 @@ $("#cpu_div").ready(function(){
 );
 
 </script>
+<script src="{% static  'bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
 </html>

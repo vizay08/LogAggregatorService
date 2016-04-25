@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load staticfiles %}
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}">
     <title>LogViewer</title>
 </head>
-{% load staticfiles %}
+
 <script type="text/javascript" src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
 <body>
+
+<nav  class="navbar  navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">LogViewer</a>
+    </div>
+
+  </div><!-- /.container-fluid -->
+</nav>
+
+
     <pre id="viewer">
         Error could not be loaded
     </pre>
@@ -24,5 +48,6 @@
         },2500);
     });
 </script>
+<script src="{% static  'bootstrap/js/bootstrap.min.js' %}"></script>
 </body>
 </html>

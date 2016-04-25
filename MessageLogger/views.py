@@ -12,6 +12,10 @@ endtime = -1
 
 #changed the design, won't be used
 def messagecount():
+    '''
+        Not following this method
+        This counts the requests in the same second
+    '''
     global starttime,endtime
     if starttime == -1:
         starttime = int(time.time())
@@ -21,7 +25,7 @@ def messagecount():
         endtime = int(time.time())
 
     try:
-        print endtime
+
         ms = MessageStatistics.objects.get(time=endtime)
         #print "saving already existing one"
         t = ms.numrequests
@@ -36,12 +40,17 @@ def messagecount():
 # Create your views here.
 @csrf_exempt
 def put_in_log(request):
+    '''
+        reason for api to put the data into the logfile
+        returns OK if on successful execution
+        returns NOK if failure
+    '''
     timestamp = int(time.time())
     ret = ""
     j = None
     try:
         s = request.body
-        print s
+
 
 
         client_token = request.POST.get('client_token','')
@@ -64,9 +73,9 @@ def put_in_log(request):
 
                 #saving logs into db
                 ls = LogSummary(clienttoken=client_token,loglevel=log_level,message=message,timestamp=timestamp)
-                print "putting into db",timestamp
                 ls.save()
 
+                #save the message into the logs
                 LogHelper.write_to_logfile(logfilename=absfilepath,loglevel=log_level,message=message)
                 return HttpResponse("OK")
 
@@ -76,5 +85,5 @@ def put_in_log(request):
 
     except Exception as e:
         ret = "Exception"+str(e)
-        print ret
+
         return HttpResponse("NOK")

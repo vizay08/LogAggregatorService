@@ -6,6 +6,9 @@ import thread
 updateFlag = False
 
 def updateDB():
+    '''
+        updates the db with CPU details
+    '''
     timestamp = time.time()
     ioreadusage = psutil.disk_io_counters().read_count
     iowriteusage = psutil.disk_io_counters().write_count
@@ -15,6 +18,11 @@ def updateDB():
     cpuDetails.save()
 
 def updateEverySecond(numSeconds):
+    '''
+        updates the db for every numSeconds
+        :param numSeconds:  time in seconds
+    '''
+
     global updateFlag
 
     if not updateFlag:
@@ -24,8 +32,12 @@ def updateEverySecond(numSeconds):
             time.sleep(numSeconds)
 
 def startupdatethread():
-    print "thread called"
+    '''
+        creates thread to update the cpu statistics table for every
+        second
+    '''
     thread.start_new_thread(updateEverySecond,(1,))
 
 if __name__ == "__main__":
+    #for modular testing
     updateEverySecond()
